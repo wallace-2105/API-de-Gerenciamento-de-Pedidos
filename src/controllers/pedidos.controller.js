@@ -42,8 +42,21 @@ function buscarPorId(req, res, next) {
   }
 }
 
+/**
+ * PATCH /pedidos/:id/status - Atualiza o status de um pedido existente (RF04).
+ */
+function atualizarStatus(req, res, next) {
+  try {
+    const pedidoAtualizado = pedidosService.atualizarStatus(req.params.id, req.body);
+    return res.status(200).json(pedidoAtualizado);
+  } catch (err) {
+    return next(err);
+  }
+}
+
 module.exports = {
   criar,
   listar,
-  buscarPorId
+  buscarPorId,
+  atualizarStatus
 };

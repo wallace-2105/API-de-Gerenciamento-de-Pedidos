@@ -17,4 +17,7 @@ router.get('/', pedidosController.listar);
 // RF03 - Consulta de pedido por ID
 router.get('/:id', pedidosController.buscarPorId);
 
+// RF04 - Atualização de status do pedido
+router.patch('/:id/status', pedidosController.atualizarStatus);
+
 module.exports = router;

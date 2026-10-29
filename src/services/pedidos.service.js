@@ -5,7 +5,7 @@
  */
 
 const pedidosRepository = require('../repositories/pedidos.repository');
-const { TIPOS, PRIORIDADES } = require('../constants/pedido.constants');
+const { TIPOS, PRIORIDADES, STATUS, TRANSICOES } = require('../constants/pedido.constants');
 const { ValidationError, NotFoundError } = require('../errors/AppError');
 
 /**
@@ -108,8 +108,60 @@ function buscarPedidoPorId(idParam) {
   return pedido;
 }
 
+/**
+ * Atualiza o status de um pedido respeitando a máquina de estados e a ordem de verificação:
+ * 1. Verifica se o pedido existe pelo ID (404 caso não exista, ANTES de validar o body).
+ * 2. Valida se o body possui o campo status válido e pertencente à lista oficial (400).
+ * 3. Verifica se a transição do status atual para o novo status é permitida (400).
+ * 4. Persiste a alteração no repositório e retorna o pedido atualizado.
+ * @param {string|number} idParam - ID do pedido.
+ * @param {Object} dados - Corpo da requisição contendo { status }.
+ * @returns {Object} Pedido com status atualizado.
+ */
+function atualizarStatus(idParam, dados) {
+  // 1. Verificar existência do pedido ANTES de validar o body
+  const pedido = buscarPedidoPorId(idParam);
+
+  // 2. Validar o body e o campo status
+  if (!dados || typeof dados !== 'object' || Array.isArray(dados)) {
+    throw new ValidationError('Dados inválidos', [
+      'O corpo da requisição deve ser um objeto JSON válido'
+    ]);
+  }
+
+  if (dados.status === undefined || dados.status === null || dados.status === '') {
+    throw new ValidationError('O campo status é obrigatório', [
+      `status é obrigatório e deve ser um dos valores permitidos: ${STATUS.join(', ')}`
+    ]);
+  }
+
+  if (typeof dados.status !== 'string' || !STATUS.includes(dados.status)) {
+    throw new ValidationError(
+      `Status inválido. Valores permitidos: ${STATUS.join(', ')}`,
+      [`status deve ser um dos valores permitidos: ${STATUS.join(', ')}`]
+    );
+  }
+
+  // 3. Validar se a transição de status é permitida pela máquina de estados
+  const statusAtual = pedido.status;
+  const novoStatus = dados.status;
+  const transicoesPermitidas = TRANSICOES[statusAtual] || [];
+
+  if (!transicoesPermitidas.includes(novoStatus)) {
+    const descricaoPermitidas =
+      transicoesPermitidas.length > 0 ? transicoesPermitidas.join(', ') : 'nenhuma';
+    throw new ValidationError(
+      `Transição inválida: de '${statusAtual}' para '${novoStatus}'. Transições permitidas: ${descricaoPermitidas}`
+    );
+  }
+
+  // 4. Atualizar e retornar o pedido completo
+  return pedidosRepository.atualizarStatus(pedido.id, novoStatus);
+}
+
 module.exports = {
   criarPedido,
   listarPedidos,
-  buscarPedidoPorId
+  buscarPedidoPorId,
+  atualizarStatus
 };
