@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+    "name": "API de Gerenciamento de Pedidos",
+    "description": "Coleção Postman oficial do projeto acadêmico 'API de Gerenciamento de Pedidos' (Tópicos Avançados em Sistemas de Informação II).\n\nIntegrantes:\n- Wallace Coimbra\n- Nicole Henrique\n- Javier Jose Garcia\n- Mateus Sepulvida",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Criação válida (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente\": \"Wallace Coimbra\",\n  \"tipo\": \"entrega\",\n  \"valor\": 350,\n  \"prioridade\": \"alta\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos"
+          ]
+        },
+        "description": "Cenário de evidência 01 (01-criacao.png): Cria um pedido válido para o cliente Wallace Coimbra e retorna HTTP 201 com status inicial 'recebido' e id 1."
+      },
+      "response": []
+    },
+    {
+      "name": "02 Validação inválida (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente\": \"\",\n  \"tipo\": \"drone\",\n  \"valor\": -50,\n  \"prioridade\": \"urgente\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos"
+          ]
+        },
+        "description": "Cenário de evidência 02 (02-validacao.png): Tenta criar um pedido com dados inválidos e retorna HTTP 400 com a lista de erros em 'detalhes'."
+      },
+      "response": []
+    },
+    {
+      "name": "03 Listagem (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos"
+          ]
+        },
+        "description": "Cenário de evidência 03 (03-listagem.png): Lista todos os pedidos cadastrados em memória e retorna HTTP 200."
+      },
+      "response": []
+    },
+    {
+      "name": "04 Consulta inexistente (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "999"
+          ]
+        },
+        "description": "Cenário de evidência 04 (04-consulta-inexistente.png): Consulta um pedido com ID inexistente (999) e retorna HTTP 404."
+      },
+      "response": []
+    },
+    {
+      "name": "05 Atualização de status válida (200)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"em_preparacao\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/1/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "1",
+            "status"
+          ]
+        },
+        "description": "Cenário de evidência 05 (05-atualizacao.png): Atualiza o status do pedido de ID 1 de 'recebido' para 'em_preparacao' e retorna HTTP 200."
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH com transição inválida (400)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"recebido\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/1/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "1",
+            "status"
+          ]
+        },
+        "description": "Requisição extra: Tenta realizar uma transição não permitida pela máquina de estados (ex.: voltar para 'recebido' ou pular etapas) e retorna HTTP 400."
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH ID inexistente (404)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"cancelado\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/999/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "999",
+            "status"
+          ]
+        },
+        "description": "Requisição extra: Tenta atualizar o status de um pedido inexistente (ID 999) e retorna HTTP 404 antes mesmo de validar transições."
+      },
+      "response": []
+    }
+  ]
+}
