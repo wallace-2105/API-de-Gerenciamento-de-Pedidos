@@ -1,0 +1,30 @@
+name: CI - Testes Automatizados
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Rodar testes com Node.js 20
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências (npm ci)
+        run: npm ci
+
+      - name: Executar testes automatizados (npm test)
+        run: npm test
