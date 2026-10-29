@@ -25,7 +25,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"cliente\": \"Wallace Coimbra\",\n  \"tipo\": \"entrega\",\n  \"valor\": 350,\n  \"prioridade\": \"alta\"\n}"
+          "raw": "{\n  \"cliente\": \"Nicole Henrique\",\n  \"tipo\": \"entrega\",\n  \"valor\": 350,\n  \"prioridade\": \"alta\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/pedidos",
@@ -36,7 +36,7 @@
             "pedidos"
           ]
         },
-        "description": "Cenário de evidência 01 (01-criacao.png): Cria um pedido válido para o cliente Wallace Coimbra e retorna HTTP 201 com status inicial 'recebido' e id 1."
+        "description": "Cenário de evidência 01 (01-criacao.png): Cria um pedido válido para a cliente Nicole Henrique e retorna HTTP 201 com status inicial 'recebido' e id 1."
       },
       "response": []
     },
