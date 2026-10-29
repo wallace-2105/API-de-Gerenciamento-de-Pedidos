@@ -1,0 +1,33 @@
+{
+  "name": "api-gerenciamento-pedidos",
+  "version": "1.0.0",
+  "description": "API RESTful de Gerenciamento de Pedidos para uma pequena loja (Tópicos Avançados em Sistemas de Informação II)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "api",
+    "pedidos",
+    "express",
+    "nodejs",
+    "rest"
+  ],
+  "author": "Wallace Coimbra",
+  "contributors": [
+    "Wallace Coimbra",
+    "Nicole Henrique",
+    "Javier Jose Garcia",
+    "Mateus Sepulvida"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
