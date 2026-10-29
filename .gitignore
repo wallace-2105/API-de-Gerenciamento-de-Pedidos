@@ -16,5 +16,6 @@ yarn-error.log*
 # Arquivos do sistema operacional e IDEs
 .DS_Store
 Thumbs.db
+desktop.ini
 .vscode/
 .idea/
