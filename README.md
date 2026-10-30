@@ -8,10 +8,10 @@ A aplicação permite cadastrar novos pedidos, listar todos os pedidos registrad
 
 ## 1. Integrantes
 
-- **Wallace Coimbra** — `RA: <preencher>`
-- **Nicole Henrique** — `RA: <preencher>`
-- **Javier Jose Garcia** — `RA: <preencher>`
-- **Mateus Sepulvida** — `RA: <preencher>`
+- **Wallace Coimbra** — `RGM: 42289238`
+- **Nicole Henrique** — `RGM: 45593744`
+- **Javier Jose Garcia** — `RGM: 45879885`
+- **Mateus Sepulvida** — `RGM: 44709170`
 
 ---
 
@@ -387,8 +387,6 @@ npm test
 ---
 
 ## 11. Uso de IA no Desenvolvimento
-
-<!-- REVISAR: os alunos devem ajustar esta seção para refletir exatamente o que fizeram -->
 
 Durante o desenvolvimento deste projeto acadêmico, o grupo utilizou a ferramenta de Inteligência Artificial **Antigravity** como assistente de programação em par (*pair programming*) para apoiar a organização da arquitetura em camadas, geração do esqueleto inicial de código, elaboração de cenários de testes no Jest/Supertest e estruturação da documentação.
 
