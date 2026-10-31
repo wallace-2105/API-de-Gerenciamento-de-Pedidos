@@ -50,7 +50,7 @@ describe('Testes de Integração - Rotas de Pedidos (/pedidos)', () => {
       expect(resposta.body.cliente).toBe('Wallace Coimbra');
     });
 
-    test('deve gerar IDs sequenciais (1, 2, 3)', async () => {
+    test('deve gerar IDs sequenciais (1, 2, 3, 4)', async () => {
       const r1 = await request(app).post('/pedidos').send({
         cliente: 'Wallace Coimbra',
         tipo: 'entrega',
@@ -69,10 +69,17 @@ describe('Testes de Integração - Rotas de Pedidos (/pedidos)', () => {
         valor: 300,
         prioridade: 'baixa'
       });
+      const r4 = await request(app).post('/pedidos').send({
+        cliente: 'Mateus Sepulvida',
+        tipo: 'entrega',
+        valor: 400,
+        prioridade: 'alta'
+      });
 
       expect(r1.body.id).toBe(1);
       expect(r2.body.id).toBe(2);
       expect(r3.body.id).toBe(3);
+      expect(r4.body.id).toBe(4);
     });
 
     test.each([
@@ -123,15 +130,22 @@ describe('Testes de Integração - Rotas de Pedidos (/pedidos)', () => {
         valor: 85,
         prioridade: 'baixa'
       });
+      await request(app).post('/pedidos').send({
+        cliente: 'Mateus Sepulvida',
+        tipo: 'entrega',
+        valor: 310,
+        prioridade: 'alta'
+      });
 
       const resposta = await request(app).get('/pedidos');
 
       expect(resposta.status).toBe(200);
-      expect(resposta.body).toHaveLength(3);
+      expect(resposta.body).toHaveLength(4);
       expect(resposta.body.map((p) => p.cliente)).toEqual([
         'Wallace Coimbra',
         'Nicole Henrique',
-        'Javier Jose Garcia'
+        'Javier Jose Garcia',
+        'Mateus Sepulvida'
       ]);
     });
   });
