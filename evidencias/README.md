@@ -36,7 +36,7 @@ Execute as requisições da coleção **exatamente nesta ordem** (pois o armazen
 - **Body (JSON) enviado:**
   ```json
   {
-    "cliente": "Javier Jose Garcia",
+    "cliente": "Mateus Sepulvida",
     "tipo": "entrega",
     "valor": 350,
     "prioridade": "alta"
@@ -44,7 +44,7 @@ Execute as requisições da coleção **exatamente nesta ordem** (pois o armazen
   ```
 - **O que deve aparecer na resposta:**
   - Status HTTP: **`201 Created`**
-  - JSON retornado com `"id": 1`, `"status": "recebido"` e os dados de `"Javier Jose Garcia"`.
+  - JSON retornado com `"id": 1`, `"status": "recebido"` e os dados de `"Mateus Sepulvida"`.
 - **Arquivo a salvar:** `evidencias/01-criacao.png`
 
 ---

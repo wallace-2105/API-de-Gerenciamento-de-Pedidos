@@ -133,7 +133,7 @@ POST /pedidos HTTP/1.1
 Content-Type: application/json
 
 {
-  "cliente": "Javier Jose Garcia",
+  "cliente": "Mateus Sepulvida",
   "tipo": "entrega",
   "valor": 350,
   "prioridade": "alta"
@@ -144,7 +144,7 @@ Content-Type: application/json
 ```json
 {
   "id": 1,
-  "cliente": "Javier Jose Garcia",
+  "cliente": "Mateus Sepulvida",
   "tipo": "entrega",
   "valor": 350,
   "prioridade": "alta",
@@ -189,7 +189,7 @@ Retorna um array com todos os pedidos cadastrados. Caso nenhum pedido tenha sido
 [
   {
     "id": 1,
-    "cliente": "Javier Jose Garcia",
+    "cliente": "Mateus Sepulvida",
     "tipo": "entrega",
     "valor": 350,
     "prioridade": "alta",
@@ -216,7 +216,7 @@ Busca um pedido pelo seu identificador numérico.
 ```json
 {
   "id": 1,
-  "cliente": "Javier Jose Garcia",
+  "cliente": "Mateus Sepulvida",
   "tipo": "entrega",
   "valor": 350,
   "prioridade": "alta",
@@ -251,7 +251,7 @@ Content-Type: application/json
 ```json
 {
   "id": 1,
-  "cliente": "Javier Jose Garcia",
+  "cliente": "Mateus Sepulvida",
   "tipo": "entrega",
   "valor": 350,
   "prioridade": "alta",
